@@ -1,0 +1,217 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:id="@+id/quote"
+    android:background="#8BC34A">
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:id="@+id/white_space"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/layout_corners"
+        android:layout_alignBottom="@+id/textView11" />
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:id="@+id/white_space_2"
+        android:background="@drawable/layout_corners"
+        android:layout_alignTop="@+id/purchaseStock"
+        android:layout_alignRight="@+id/white_space"
+        android:layout_alignEnd="@+id/white_space"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/setSymbol"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Enter Tick Symbol"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_alignRight="@+id/purchaseStock"
+        android:layout_alignEnd="@+id/purchaseStock"
+        android:capitalize="characters"
+        android:maxLines="1" android:singleLine="true">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/get_quote_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="9dp"
+        android:hint="SEARCH"
+        android:layout_alignBottom="@+id/setSymbol"
+        android:layout_alignRight="@+id/white_space"
+        android:layout_alignEnd="@+id/white_space"
+        android:layout_toRightOf="@+id/setSymbol"
+        android:layout_toEndOf="@+id/setSymbol" />
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/stockSymbolOutput"
+        android:layout_below="@+id/setSymbol"
+        android:width="0dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignRight="@+id/get_quote_button"
+        android:layout_alignEnd="@+id/get_quote_button"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:paddingTop="20dp"
+        android:text="Name"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stockChangePriceOutput"
+        android:layout_below="@+id/stockPriceOutput"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignLeft="@+id/stockPriceOutput"
+        android:layout_alignStart="@+id/stockPriceOutput"
+        android:layout_alignRight="@+id/stockPriceOutput"
+        android:layout_alignEnd="@+id/stockPriceOutput"
+        android:paddingTop="20dp"
+        android:text="Change"
+        android:paddingBottom="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stockPriceOutput"
+        android:layout_below="@+id/stockSymbolOutput"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignRight="@+id/stockSymbolOutput"
+        android:layout_alignEnd="@+id/stockSymbolOutput"
+        android:layout_alignLeft="@+id/stockSymbolOutput"
+        android:layout_alignStart="@+id/stockSymbolOutput"
+        android:paddingTop="20dp"
+        android:text="Price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textView3"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Name"
+        android:id="@+id/textView8"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:layout_below="@+id/setSymbol"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Share Price"
+        android:id="@+id/textView10"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:paddingLeft="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Change"
+        android:id="@+id/textView11"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/textView10"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignStart="@+id/textView10"
+        android:paddingLeft="15dp"
+        android:paddingBottom="15dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnBuyStock"
+        android:layout_alignTop="@+id/textView3"
+        android:hint="BUY"
+        android:layout_alignLeft="@+id/buySharesAmount"
+        android:layout_alignStart="@+id/buySharesAmount"
+        android:layout_alignRight="@+id/buySharesAmount"
+        android:layout_alignEnd="@+id/buySharesAmount" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buyStockName"
+        android:layout_alignLeft="@+id/purchaseStock"
+        android:layout_alignStart="@+id/purchaseStock"
+        android:layout_alignRight="@+id/purchaseStock"
+        android:layout_alignEnd="@+id/purchaseStock"
+        android:layout_below="@+id/bankTextbox"
+        android:paddingTop="30dp"
+        android:inputType="textNoSuggestions"
+        android:hint="Enter Tick Symbol"
+        android:gravity="center_horizontal"
+        android:capitalize="characters"
+        android:maxLines="1" android:singleLine="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buySharesAmount"
+        android:layout_alignRight="@+id/buyStockName"
+        android:layout_alignEnd="@+id/buyStockName"
+        android:layout_alignLeft="@+id/buyStockName"
+        android:layout_alignStart="@+id/buyStockName"
+        android:layout_below="@+id/buyStockName"
+        android:hint="Enter Share Amt"
+        android:gravity="center_horizontal"
+        android:paddingBottom="15dp"
+        android:maxLines="1" android:singleLine="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Purchase Stock"
+        android:id="@+id/purchaseStock"
+        android:paddingTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Your bank:"
+        android:id="@+id/bankTextbox"
+        android:layout_below="@+id/purchaseStock"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp" />
+
+
+</RelativeLayout>

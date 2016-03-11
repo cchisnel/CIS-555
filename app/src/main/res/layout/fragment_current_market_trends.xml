@@ -1,0 +1,168 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.capstone.hammond.wallstreetfantasyleaguefinal.CurrentMarketTrendsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="left|top"
+        android:background="#8BC34A">
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="350dp"
+            android:layout_height="380dp"
+            android:id="@+id/white_space"
+            android:background="@drawable/layout_corners"
+            android:layout_alignBottom="@+id/ny_percent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="S&amp;P"
+            android:id="@+id/sp"
+            android:layout_gravity="left|top"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="37dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/sp_price"
+            android:layout_below="@+id/sp"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/sp_percent"
+            android:layout_below="@+id/sp_price"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#000000"
+            android:layout_below="@+id/sp_percent"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="NASDAQ"
+            android:id="@+id/nasdaq"
+            android:layout_below="@+id/sp_percent"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/nasdaq_price"
+            android:layout_below="@+id/nasdaq"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/nasdaq_percent"
+            android:layout_below="@+id/nasdaq_price"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#000000"
+            android:layout_below="@+id/nasdaq_percent"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="NYSE"
+            android:id="@+id/nyse"
+            android:layout_below="@+id/nasdaq_percent"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/ny_price"
+            android:layout_below="@+id/nyse"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:id="@+id/ny_percent"
+            android:layout_below="@+id/ny_price"
+            android:layout_alignLeft="@+id/sp"
+            android:layout_alignStart="@+id/sp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

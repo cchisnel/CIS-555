@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.capstone.hammond.wallstreetfantasyleaguefinal.AccountFragment"
+    android:title="Account"
+    android:background="#8BC34A">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="325dp"
+        android:layout_height="320dp"
+        android:id="@+id/white_space"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/layout_corners"
+        android:layout_above="@+id/updateInfo"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/user_name"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/user_email"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/user_name"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password: **********"
+        android:id="@+id/user_password"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/user_email"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Info"
+        android:id="@+id/updateInfo"
+        android:layout_marginBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/white_space"
+        android:layout_alignEnd="@+id/white_space"
+        android:layout_alignLeft="@+id/white_space" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:src="@mipmap/ic_action_person_xxhdpi"
+        android:layout_marginBottom="49dp"
+        android:layout_above="@+id/user_name"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffffff"
+        android:minHeight="96dp"
+        android:minWidth="96dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bank Amount:"
+        android:id="@+id/bankamount"
+        android:textStyle="bold"
+        android:layout_below="@+id/user_password"
+        android:layout_alignLeft="@+id/user_password"
+        android:layout_alignStart="@+id/user_password"
+        android:layout_marginTop="32dp" />
+
+</RelativeLayout>

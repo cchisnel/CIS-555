@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.capstone.hammond.wallstreetfantasyleaguefinal.UpdateAccountFragment"
+    android:title="Update Account"
+    android:background="#8BC34A">
+
+
+    <ImageView
+        android:layout_width="325dp"
+        android:layout_height="475dp"
+        android:id="@+id/imageView7"
+        android:background="@drawable/layout_corners"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please update the fields that you would like updated. Both passwords must match and be of length 6 or greater."
+        android:id="@+id/textView15"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Email"
+        android:id="@+id/updateEmailButton"
+        android:layout_below="@+id/updateEmailTextbox"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newPasswordTextbox"
+        android:hint="New Password"
+        android:editable="false"
+        android:inputType="textPassword"
+        android:password="true"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7"
+        android:textStyle="normal"
+        android:textSize="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newPassword2Textbox"
+        android:hint="New Password"
+        android:editable="false"
+        android:inputType="textPassword"
+        android:password="true"
+        android:layout_below="@+id/newPasswordTextbox"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Password"
+        android:id="@+id/updatePasswordButton"
+        android:layout_above="@+id/accountScreenButton"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Screen"
+        android:id="@+id/accountScreenButton"
+        android:layout_alignBottom="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateEmailTextbox"
+        android:hint="New Email Address"
+        android:editable="false"
+        android:inputType="textEmailAddress"
+        android:password="false"
+        android:textStyle="normal"
+        android:textSize="20dp"
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/imageView7"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_marginTop="35dp"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7" />
+</RelativeLayout>

@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".AccountSetupActivity"
+    android:background="#8BC34A">
+
+    <ImageView
+        android:layout_width="375dp"
+        android:layout_height="70dp"
+        android:id="@+id/white_space"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/layout_corners"
+        android:layout_above="@+id/username" />
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:id="@+id/white_space_2"
+        android:layout_above="@+id/sign_up_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/white_space"
+        android:background="@drawable/layout_corners"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:id="@+id/imageView"
+        android:src="@mipmap/newyorkcity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="124dp"
+        android:layout_above="@+id/username" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/username"
+        android:hint="Username"
+        android:layout_above="@+id/email"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignLeft="@+id/white_space_2"
+        android:layout_alignStart="@+id/white_space_2"
+        android:nextFocusForward="@+id/email" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/email"
+        android:layout_above="@+id/password"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:hint="Email"
+        android:nextFocusForward="@+id/password"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_above="@+id/confirm_password"
+        android:layout_alignRight="@+id/email"
+        android:layout_alignEnd="@+id/email"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignStart="@+id/email"
+        android:nextFocusForward="@+id/confirm_password"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_password"
+        android:inputType="textPassword"
+        android:hint="Confirm password"
+        android:layout_above="@+id/sign_up_button"
+        android:layout_alignRight="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:nextFocusDown="@+id/sign_up_button"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:id="@+id/sign_up_button"
+        android:nextFocusForward="@+id/cancelButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/white_space_2"
+        android:layout_alignEnd="@+id/white_space_2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Wall Street Fantasy League. Please enter the following information so we can create an account for you."
+        android:id="@+id/textView2"
+        android:textSize="15dp"
+        android:layout_marginBottom="61dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_above="@+id/username" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancelButton"
+        android:layout_alignParentBottom="true"
+        android:nextFocusForward="@id/username"
+        android:layout_alignLeft="@+id/white_space_2"
+        android:layout_alignStart="@+id/white_space_2" />
+
+</RelativeLayout>
