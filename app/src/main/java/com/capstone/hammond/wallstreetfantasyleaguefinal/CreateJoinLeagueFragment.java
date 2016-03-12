@@ -1,5 +1,10 @@
 package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
+
+/**
+ * Created by casey chisnell on 3/10/2016.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -40,16 +46,32 @@ public class CreateJoinLeagueFragment extends Fragment {
         mSignUpButton = (Button) view.findViewById(R.id.btnjoinleague);
         mLeagueName = (EditText) view.findViewById(R.id.txtTeamName);
 
-        final String leaguename = mLeagueName.getText().toString();
+
 
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //ParseUser user = new ParseUser();
                 //user.put("League", leaguename);
                 ParseUser user = new ParseUser().getCurrentUser();
+                String leaguename = mLeagueName.getText().toString();
                 user.put("League", leaguename);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast a = Toast.makeText(getActivity(), "You have joined the league.", Toast.LENGTH_LONG);
+                            a.show();
+
+                        } else {
+                            Toast a = Toast.makeText(getActivity(), "You are unable to join at this time.", Toast.LENGTH_LONG);
+                            a.show();
+                        }
+                    }
+                });
+
 
 
             }
@@ -74,3 +96,4 @@ public class CreateJoinLeagueFragment extends Fragment {
 
 
 }
+
