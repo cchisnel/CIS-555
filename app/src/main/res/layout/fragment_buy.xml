@@ -46,11 +46,8 @@
         android:layout_alignStart="@+id/textView8"
         android:layout_alignRight="@+id/purchaseStock"
         android:layout_alignEnd="@+id/purchaseStock"
-        android:capitalize="characters"
-        android:maxLines="1" android:singleLine="true">
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textCapCharacters|textNoSuggestions"
+        android:maxLines="1" android:singleLine="true"/>
 
     <Button
         android:id="@+id/get_quote_button"
@@ -173,10 +170,9 @@
         android:layout_alignEnd="@+id/purchaseStock"
         android:layout_below="@+id/bankTextbox"
         android:paddingTop="30dp"
-        android:inputType="textNoSuggestions"
         android:hint="Enter Tick Symbol"
         android:gravity="center_horizontal"
-        android:capitalize="characters"
+        android:inputType="textCapCharacters|textNoSuggestions"
         android:maxLines="1" android:singleLine="true"/>
 
     <EditText
@@ -191,6 +187,7 @@
         android:hint="Enter Share Amt"
         android:gravity="center_horizontal"
         android:paddingBottom="15dp"
+        android:inputType="number"
         android:maxLines="1" android:singleLine="true"/>
 
     <TextView

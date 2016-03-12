@@ -3,6 +3,7 @@ package com.capstone.hammond.wallstreetfantasyleaguefinal;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,6 +159,10 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 b.show();
             } else {
 
+                // Pretty sure this entire section can be deleted //
+                // Or work this into storing stock information /////
+                ////////////////////////////////////////////////////
+
                 boolean test;
 
                 test = new CheckTask(mTick).execute().get();
@@ -176,6 +181,9 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 stocks.put("NumberofStocks",mShareNum);
                 stocks.put("UserID" ,ParseUser.getCurrentUser().getObjectId());
                 stocks.saveInBackground();// possibly implement callback here for error checking*/
+
+                //////////////////////////////
+                // End of possible deletion //
 
                 //Resets fields after clicking Buy once
                 bank.setText("Your bank: " + currencyFormat.format(mNewBank));
@@ -202,6 +210,13 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
 
                     }
                 });
+
+                // Reload Fragment
+                Fragment fragmentObject = new BuyFragment();
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(fragmentObject);
+                ft.attach(fragmentObject);
+                ft.commit();
             }
 
         }catch(InterruptedException e) {
