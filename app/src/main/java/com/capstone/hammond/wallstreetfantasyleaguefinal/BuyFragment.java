@@ -163,7 +163,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 // Or work this into storing stock information /////
                 ////////////////////////////////////////////////////
 
-                boolean test;
+                /*boolean test;
 
                 test = new CheckTask(mTick).execute().get();
 
@@ -172,19 +172,18 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 }
                 else {
                     new BuyTask2(mTick, mShares, mNewBank, mSharePrice, mBankAmt, mShareNum).execute();
-                }
+                } */
+
+                //////////////////////////////
+                // End of possible deletion //
 
                 //updates DB to reflect the stock transaction for the user (may need to be changed)
-                // creates a new parse object called stocks ==works==
-                ParseObject stocks = new ParseObject("Stocks");
+                /*ParseObject stocks = new ParseObject("Stocks");
                 stocks.put("TickerSymbol",symbolOut.getText().toString());
                 stocks.put("StockPrice",priceOut.getText().toString());
                 stocks.put("NumberofStocks",mShareNum);
                 stocks.put("UserID" ,ParseUser.getCurrentUser().getObjectId());
-                stocks.saveInBackground();// possibly implement callback here for error checking*/
-
-                //////////////////////////////
-                // End of possible deletion //
+                stocks.saveInBackground(); // possibly implement callback here for error checking*/
 
                 //Resets fields after clicking Buy once
                 bank.setText("Your bank: " + currencyFormat.format(mNewBank));
@@ -195,7 +194,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
 
                 //updates user bank account balance after purchasing stocks
                 ParseUser user = new ParseUser().getCurrentUser();
-                user.put("PlayerBank", mNewBank);//============
+                user.put("PlayerBank", mNewBank);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
