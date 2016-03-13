@@ -17,8 +17,8 @@
 
     <string-array name="sections">
         <item>"  Current Market Trends"</item>
-        <item>"  Buy/Sell Stocks</item>
-        <item>"  My Stocks</item>
+        <item>"  Buy Stock</item>
+        <item>"  Sell Stock</item>
         <item>"  Ranking"</item>
         <item>"  Schedule"</item>
         <item>"  League"</item>

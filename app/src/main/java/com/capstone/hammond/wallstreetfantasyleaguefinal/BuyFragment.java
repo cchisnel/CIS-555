@@ -46,7 +46,6 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
     TextView bank;
     Button getQuote;
     Button buyStock;
-    Button sellStock;
     View rootview;
 
     @Nullable
@@ -67,7 +66,6 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
         tick = (EditText) view.findViewById(R.id.buyStockName);
         shares = (EditText) view.findViewById(R.id.buySharesAmount);
         buyStock = (Button) view.findViewById(R.id.btnBuyStock);
-        sellStock = (Button) view.findViewById(R.id.sellButton);
         bank = (TextView) view.findViewById(R.id.bankTextbox);
 
         //Retrieves the users current account balance
@@ -121,15 +119,6 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
             }
         });
 
-        sellStock.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-
-            }
-
-
-        });
 
     }
 
