@@ -7,14 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -25,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -34,7 +30,7 @@ import java.util.logging.Logger;
 
 
 public class SellFragment extends Fragment {
-    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+   /* private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     Button sellStock;
     Button search;
     EditText tick;
@@ -51,7 +47,7 @@ public class SellFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_sell, container, false);
+        rootview = inflater.inflate(R.layout.fragment_my_stocks, container, false);
         return rootview;
     }
 
@@ -143,7 +139,7 @@ public class SellFragment extends Fragment {
         e.printStackTrace();
     }catch(ExecutionException e) {
         e.printStackTrace();
-    }*/
+    }
 
     public void sellStockM() throws SQLException {
 
@@ -208,7 +204,7 @@ public class SellFragment extends Fragment {
                             // Error
                         }
                     }
-                });*/
+                });
 
                 //bankView.setText("Your bank: " + (currencyFormat.format(Float.parseFloat(BuyFragment.bankS))));
 
@@ -267,7 +263,7 @@ public class SellFragment extends Fragment {
 
             return null;
         }
-    }*/
+
 
     public static class SellTask extends AsyncTask<Void, Void, Void> {
         Connection conn = null;
@@ -393,7 +389,7 @@ public class SellFragment extends Fragment {
 
             return null;
         }
-    }
+    }*/
 
 
 

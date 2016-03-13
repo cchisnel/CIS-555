@@ -63,12 +63,12 @@ public class NavDrawer extends ActionBarActivity
                 fragmentObject = new CurrentMarketTrendsFragment();
                 break;
             case 1:
-                mTitle = "Buy Stock";
+                mTitle = "Buy/Sell";
                 fragmentObject = new BuyFragment();
                 break;
             case 2:
-                mTitle = "Sell Stock";
-                fragmentObject = new SellFragment();
+                mTitle = "My Stocks";
+                fragmentObject = new MyStocksFragment();
                 break;
             case 3:
                 mTitle = "Ranking";
