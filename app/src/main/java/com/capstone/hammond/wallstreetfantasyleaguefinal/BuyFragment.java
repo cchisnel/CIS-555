@@ -175,7 +175,8 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 }
 
                 //updates DB to reflect the stock transaction for the user (may need to be changed)
-               /*ParseObject stocks = new ParseObject("Stocks");
+                // creates a new parse object called stocks ==works==
+                ParseObject stocks = new ParseObject("Stocks");
                 stocks.put("TickerSymbol",symbolOut.getText().toString());
                 stocks.put("StockPrice",priceOut.getText().toString());
                 stocks.put("NumberofStocks",mShareNum);
@@ -194,6 +195,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
 
                 //updates user bank account balance after purchasing stocks
                 ParseUser user = new ParseUser().getCurrentUser();
+                user.put("PlayerBank", mNewBank);//============
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
