@@ -183,7 +183,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 stocks.put("StockPrice",priceOut.getText().toString());
                 stocks.put("NumberofStocks",mShareNum);
                 stocks.put("UserID" ,ParseUser.getCurrentUser().getObjectId());
-                stocks.saveInBackground(); // possibly implement callback here for error checking*/
+                stocks.saveInBackground();// possibly implement callback here for error checking*/
 
                 //Resets fields after clicking Buy once
                 bank.setText("Your bank: " + currencyFormat.format(mNewBank));
@@ -212,7 +212,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                     }
                 });
 
-                // Reload Fragment
+                //Reload Fragment
                 Fragment fragmentObject = new BuyFragment();
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.detach(fragmentObject);
