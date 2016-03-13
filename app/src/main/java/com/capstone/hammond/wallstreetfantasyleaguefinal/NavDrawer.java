@@ -13,12 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Toast;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
@@ -63,11 +58,11 @@ public class NavDrawer extends ActionBarActivity
                 fragmentObject = new CurrentMarketTrendsFragment();
                 break;
             case 1:
-                mTitle = "Buy Stock";
+                mTitle = "Buy";
                 fragmentObject = new BuyFragment();
                 break;
             case 2:
-                mTitle = "Sell Stock";
+                mTitle = "Sell";
                 fragmentObject = new SellFragment();
                 break;
             case 3:

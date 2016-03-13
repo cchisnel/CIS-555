@@ -119,7 +119,9 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
             }
         });
 
+
     }
+
 
 
     public void setResult(String fstockSymbol, String stockPrice, String fstockChangePercentage, TextView symbolOut, TextView priceOut, TextView changePercentageOut) {
@@ -142,6 +144,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
         }
     }
 
+
     public void BuyStock() throws SQLException {
 
         try {
@@ -159,11 +162,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 b.show();
             } else {
 
-                // Pretty sure this entire section can be deleted //
-                // Or work this into storing stock information /////
-                ////////////////////////////////////////////////////
-
-                /*boolean test;
+                boolean test;
 
                 test = new CheckTask(mTick).execute().get();
 
@@ -172,18 +171,15 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 }
                 else {
                     new BuyTask2(mTick, mShares, mNewBank, mSharePrice, mBankAmt, mShareNum).execute();
-                } */
+                }
 
-                //////////////////////////////
-                // End of possible deletion //
-
-                //updates DB to reflect the stock transaction for the user (may need to be changed)
-                /*ParseObject stocks = new ParseObject("Stocks");
-                stocks.put("TickerSymbol",symbolOut.getText().toString());
+                //Saves stock transaction for the user in the database
+                ParseObject stocks = new ParseObject("Stocks");
+                stocks.put("TickerSymbol",tick.getText().toString());
                 stocks.put("StockPrice",priceOut.getText().toString());
                 stocks.put("NumberofStocks",mShareNum);
                 stocks.put("UserID" ,ParseUser.getCurrentUser().getObjectId());
-                stocks.saveInBackground();// possibly implement callback here for error checking*/
+                stocks.saveInBackground();
 
                 //Resets fields after clicking Buy once
                 bank.setText("Your bank: " + currencyFormat.format(mNewBank));
@@ -212,7 +208,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                     }
                 });
 
-                //Reload Fragment
+                // Reload Fragment
                 Fragment fragmentObject = new BuyFragment();
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.detach(fragmentObject);
