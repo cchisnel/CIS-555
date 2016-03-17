@@ -22,8 +22,10 @@
         android:clickable="false"
         android:drawSelectorOnTop="false"
         android:transitionGroup="false"
+        android:listSelector="@drawable/stock_selector"
         android:smoothScrollbar="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:choiceMode="singleChoice" />
 
     <Button
         android:layout_width="wrap_content"
@@ -41,23 +43,35 @@
         android:layout_height="80dp"
         android:id="@+id/imageView2"
         android:background="@drawable/layout_corners"
-        android:layout_above="@+id/sellButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/sellButton" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/shareAmountTextbox"
         android:hint="Enter Share Amount"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:paddingBottom="15dp"
         android:inputType="number"
         android:maxLines="1"
         android:singleLine="true"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:layout_alignBottom="@+id/imageView2"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please select a stock from the list above and enter a share amount in order to sell."
+        android:id="@+id/textView4"
+        android:layout_marginLeft="5dp"
+        android:textSize="18dp"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
