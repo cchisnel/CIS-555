@@ -157,6 +157,7 @@ public class BuyFragment extends Fragment {
             final float mNewBank = mBankAmt - (mSharePrice * mShareNum);
             final String mTick = tick.getText().toString().toUpperCase();
             final String mShares = shares.getText().toString();
+            final String stockPrice = priceOut.getText().toString();
 
             if (mSharePrice*(Float.parseFloat(mShares))>(mBankAmt)) {
                 Toast b = Toast.makeText(getActivity(),"You do not have sufficient funds. Enter a different amount.", Toast.LENGTH_LONG);
@@ -185,8 +186,8 @@ public class BuyFragment extends Fragment {
                         //Creates a new stock object for the user in the parse Stock class if matching ticker symbol isn't found
                         if (tickerCheck == false) {
                             ParseObject stocks = new ParseObject("Stocks");
-                            stocks.put("TickerSymbol", tick.getText().toString());
-                            stocks.put("StockPrice", priceOut.getText().toString());
+                            stocks.put("TickerSymbol", mTick);
+                            stocks.put("StockPrice", stockPrice);
                             stocks.put("NumberofStocks", mShareNum);
                             stocks.put("UserID", ParseUser.getCurrentUser().getObjectId());
                             stocks.saveInBackground();
@@ -200,6 +201,8 @@ public class BuyFragment extends Fragment {
                 shares.setText("");
                 symbolOut.setText("");
                 setSymbol.setText("");
+                priceOut.setText("");
+                changePercentageOut.setText("");
 
                 //updates user bank account balance after purchasing stocks
                 ParseUser user = new ParseUser().getCurrentUser();
