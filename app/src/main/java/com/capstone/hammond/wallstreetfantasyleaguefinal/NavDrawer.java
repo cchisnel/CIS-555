@@ -69,15 +69,16 @@ public class NavDrawer extends ActionBarActivity
                 mTitle = "Ranking";
                 fragmentObject = new StandingsFragment();
                 break;
-            case 4:
+            //removing the schedule tab for the tab being.
+            /*case 4:
                 mTitle = "Schedule";
                 fragmentObject = new ScheduleFragment();
-                break;
-            case 5:
+                break;*/
+            case 4:
                 mTitle = "League";
                 fragmentObject = new CreateJoinLeagueFragment();
                 break;
-            case 6:
+            case 5:
                 mTitle = "Account";
                 fragmentObject = new AccountFragment();
                 break;
