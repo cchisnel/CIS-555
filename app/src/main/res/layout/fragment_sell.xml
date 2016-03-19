@@ -18,14 +18,14 @@
         android:background="@drawable/layout_corners"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_centerHorizontal="true"
         android:clickable="false"
         android:drawSelectorOnTop="false"
         android:transitionGroup="false"
         android:listSelector="@drawable/stock_selector"
         android:smoothScrollbar="true"
         android:layout_alignParentTop="true"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_above="@+id/imageView2" />
 
     <Button
         android:layout_width="wrap_content"
