@@ -12,12 +12,13 @@
 
     <string name="action_example">Example action</string>
 
-    <string-array name="sections">
+   <string-array name="sections">
         <item>"  Current Market Trends"</item>
         <item>"  Buy Stock</item>
         <item>"  Sell Stock</item>
         <item>"  Ranking"</item>
-        <item>"  Schedule"</item>
+        <!--for the removed schedule tab-->
+      <!--  <item>"  Schedule"</item>-->
         <item>"  League"</item>
         <item>"  Account</item>
     </string-array>
@@ -26,7 +27,8 @@
         <item>Section T2</item>
         <item>Section T3</item>
         <item>Section T4</item>
-        <item>Section T5</item>
+        <!--for the removed schedule tab-->
+        <!--<item>Section T5</item>-->
         <item>Section T6</item>
         <item>Section T7</item>
     </string-array>
@@ -35,7 +37,8 @@
         <item>@drawable/ic_money</item>
         <item>@drawable/ic_money</item>
         <item>@drawable/ic_standings</item>
-        <item>@drawable/ic_calendar</item>
+        <!--for the removed schedule tab-->
+       <!-- <item>@drawable/ic_calendar</item>-->
         <item>@drawable/ic_league</item>
         <item>@drawable/ic_person</item>
     </string-array>
