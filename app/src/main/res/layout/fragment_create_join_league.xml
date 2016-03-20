@@ -73,6 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/imageView4"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        tools:listitem="@android:layout/simple_list_item_1" 
+        android:listSelector="@drawable/stock_selector"/>
 
 </RelativeLayout>
