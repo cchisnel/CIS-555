@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -32,7 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class BuyFragment extends Fragment {     //Combine both buy and sell tabs here, do more investigation at certain stocks causing a crash
+public class BuyFragment extends Fragment {
 
     private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     public static String bankS = "0000";
@@ -47,6 +49,7 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
     Button getQuote;
     Button buyStock;
     View rootview;
+    boolean tickerCheck = false;
 
     @Nullable
     @Override
@@ -105,7 +108,8 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 String pattern = "[0-9]+";
                 Pattern r = Pattern.compile(pattern);
                 Matcher m = r.matcher(line);
-                if(m.find()) {     //Checks that share amount is comprised of only letters
+                //Checks that share amount is comprised of only letters
+                if (m.find()) {
                     try {
                         BuyStock();
                     } catch (SQLException e) {
@@ -121,8 +125,6 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
 
 
     }
-
-
 
     public void setResult(String fstockSymbol, String stockPrice, String fstockChangePercentage, TextView symbolOut, TextView priceOut, TextView changePercentageOut) {
         try {
@@ -151,35 +153,47 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
             List<String> results = new Yahoo().execute(tick.getText().toString()).get();
             float mSharePrice = Float.parseFloat(results.get(1));
             float mBankAmt = Float.parseFloat(bankS);
-            float mShareNum = Float.parseFloat(shares.getText().toString());
+            final float mShareNum = Float.parseFloat(shares.getText().toString());
             final float mNewBank = mBankAmt - (mSharePrice * mShareNum);
-
-            String mTick = tick.getText().toString().toUpperCase();
-            String mShares = shares.getText().toString();
+            final String mTick = tick.getText().toString().toUpperCase();
+            final String mShares = shares.getText().toString();
+            final String stockPrice = priceOut.getText().toString();
 
             if (mSharePrice*(Float.parseFloat(mShares))>(mBankAmt)) {
                 Toast b = Toast.makeText(getActivity(),"You do not have sufficient funds. Enter a different amount.", Toast.LENGTH_LONG);
                 b.show();
             } else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Stocks");
+                query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> stockL, com.parse.ParseException e) {
 
-                boolean test;
+                        //Searches parse Stock class for a matching ticker symbol, appends new stock number to object if found
+                        for (int i = 0; i < stockL.size(); i++) {
 
-                test = new CheckTask(mTick).execute().get();
+                            String userTicker = stockL.get(i).get("TickerSymbol").toString();
 
-                if (test==true) {
-                    new BuyTask(mTick, mShares, mNewBank, mSharePrice, mBankAmt, mShareNum).execute();
-                }
-                else {
-                    new BuyTask2(mTick, mShares, mNewBank, mSharePrice, mBankAmt, mShareNum).execute();
-                }
+                            if (userTicker.equals(mTick)) {
+                                Integer numStocks = Integer.valueOf(stockL.get(i).get("NumberofStocks").toString());
+                                Integer newStockNum = Integer.valueOf(mShares) + numStocks;
+                                stockL.get(i).put("NumberofStocks", newStockNum);
+                                stockL.get(i).saveInBackground();
+                                tickerCheck = true;
+                                break;
+                            }
+                        }
 
-                //Saves stock transaction for the user in the database
-                ParseObject stocks = new ParseObject("Stocks");
-                stocks.put("TickerSymbol",tick.getText().toString());
-                stocks.put("StockPrice",priceOut.getText().toString());
-                stocks.put("NumberofStocks",mShareNum);
-                stocks.put("UserID" ,ParseUser.getCurrentUser().getObjectId());
-                stocks.saveInBackground();
+                        //Creates a new stock object for the user in the parse Stock class if matching ticker symbol isn't found
+                        if (tickerCheck == false) {
+                            ParseObject stocks = new ParseObject("Stocks");
+                            stocks.put("TickerSymbol", mTick);
+                            stocks.put("StockPrice", stockPrice);
+                            stocks.put("NumberofStocks", mShareNum);
+                            stocks.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                            stocks.saveInBackground();
+                        }
+                    }
+                });
 
                 //Resets fields after clicking Buy once
                 bank.setText("Your bank: " + currencyFormat.format(mNewBank));
@@ -187,6 +201,8 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
                 shares.setText("");
                 symbolOut.setText("");
                 setSymbol.setText("");
+                priceOut.setText("");
+                changePercentageOut.setText("");
 
                 //updates user bank account balance after purchasing stocks
                 ParseUser user = new ParseUser().getCurrentUser();
@@ -222,160 +238,6 @@ public class BuyFragment extends Fragment {     //Combine both buy and sell tabs
             e.printStackTrace();
         }
 
-    }
-
-    public static class BuyTask extends AsyncTask<Void, Void, Void> {
-
-        float newBank;
-        float sharePrice;
-        float bankAmt;
-        float shareNum;
-
-        String tick, shares;
-
-        BuyTask(String mTick, String mShares, float mNewBank, float mSharePrice, float mBankAmt, float mShareNum) {
-            tick = mTick;
-            shares = mShares;
-            newBank = mNewBank;
-            sharePrice = mSharePrice;
-            bankAmt = mBankAmt;
-            shareNum = mShareNum;
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-
-                String statement1 = "UPDATE L" + UserLoginInfo.leagueNum + "_STANDINGS SET BANK = '" + newBank + "' WHERE EMAIL = '" + UserLoginInfo.userEmail + "'";
-
-                String statement2 = "INSERT INTO L" + UserLoginInfo.leagueNum + "_STOCKS(userid,email,ticker_symbol,num_shares) VALUES" +
-                        " (" + UserLoginInfo.userID + ",'" + UserLoginInfo.userEmail + "','" + tick +
-                        "'," + shares + ")";
-                return null;
-
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
-
-    public static class BuyTask2 extends AsyncTask<Void, Void, Void> {
-        Connection conn = null;
-        ResultSet rs = null;
-        Statement st = null;
-        Statement statement_1 = null;
-        Statement statement_2 = null;
-
-        float newBank;
-        float sharePrice;
-        float bankAmt;
-        float shareNum;
-        float temp;
-        float newShareNum;
-
-        String tick, shares;
-
-        BuyTask2(String mTick, String mShares, float mNewBank, float mSharePrice, float mBankAmt, float mShareNum) {
-            tick = mTick;
-            shares = mShares;
-            newBank = mNewBank;
-            sharePrice = mSharePrice;
-            bankAmt = mBankAmt;
-            shareNum = mShareNum;
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            try {
-                conn = null;
-                rs = null;
-                st = null;
-                if (conn != null)
-                    st = conn.createStatement();
-                if (st != null)
-                    rs = st.executeQuery("SELECT * FROM L1_STOCKS WHERE USERID ='" + UserLoginInfo.userID + "' AND TICKER_SYMBOL='" + tick + "'");
-                if (rs != null)
-                    while (rs.next()) {
-                        temp = Float.parseFloat(rs.getString("NUM_SHARES"));
-                    }
-
-                newShareNum = temp + (Float.parseFloat(shares));
-
-                String statement1 = "UPDATE L" + UserLoginInfo.leagueNum + "_STANDINGS SET BANK = '" + newBank + "' WHERE EMAIL = '" + UserLoginInfo.userEmail + "'";
-
-                String statement2 = "UPDATE L" + UserLoginInfo.leagueNum + "_STOCKS SET NUM_SHARES=" + newShareNum + "WHERE TICKER_SYMBOL='" + tick + "'";
-
-                statement_1 = conn.createStatement();
-                statement_2 = conn.createStatement();
-
-                statement_1.execute(statement1);
-                statement_2.execute(statement2);
-
-                return null;
-
-            } catch(SQLException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
-
-
-    public static class CheckTask extends AsyncTask<Void, Void, Boolean> {
-        ResultSet rs;
-        Statement st;
-        Connection conn;
-        String ticker;
-
-        CheckTask(String mTick) {
-            ticker = mTick;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            List<String> list = new ArrayList<>();
-
-            try {
-                conn = null;
-                rs = null;
-                st = null;
-                if (conn != null)
-                    st = conn.createStatement();
-                if (st != null)
-                    rs = st.executeQuery("SELECT * FROM L" + UserLoginInfo.leagueNum + "_STOCKS WHERE USERID ='" + UserLoginInfo.userID + "' AND TICKER_SYMBOL='" + ticker + "'");
-                if (rs != null)
-                    while (rs.next()) {
-                        list.add(rs.getString("TICKER_SYMBOL"));
-                    }
-
-                if(list.isEmpty()) {
-                    return true;
-                }
-
-                else return false;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (rs != null)
-                        rs.close();
-                    if (st != null)
-                        st.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return null;
-        }
     }
 }
 

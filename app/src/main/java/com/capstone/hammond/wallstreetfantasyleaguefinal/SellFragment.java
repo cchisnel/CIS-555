@@ -4,17 +4,18 @@ import android.net.ParseException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -55,7 +56,7 @@ public class SellFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        updateStockList(stocksL);
+        createStockList(stocksL);
 
         stocksL.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -84,12 +85,14 @@ public class SellFragment extends Fragment {
                             updateStock();
                             updateAccountBalance();
 
+                            //TODO: This doesn't always work, need a better solution
                             //Reloads fragment
                             Fragment newFragment = new SellFragment();
-                            android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.container, newFragment)
+                                    .commit();
+
 
                         } catch (ParseException e) {
                             logger.log(Level.SEVERE, e.toString());
@@ -104,7 +107,7 @@ public class SellFragment extends Fragment {
         });
     }
 
-    private void updateStockList(ListView stocksL) {
+    private void createStockList(final ListView stocksL) {
         // Creates and populates an ArrayList of objects from parse
         final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         stocksL.setAdapter(listAdapter);
@@ -122,18 +125,17 @@ public class SellFragment extends Fragment {
                         String numStocks = stockL.get(i).get("NumberofStocks").toString();
 
                         listAdapter.add("Stock: " + parseTicker + ", Number of stocks held: " + numStocks);
-                    }
 
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
                     logger.log(Level.SEVERE, e.toString());
                 }
             }
-
         });
+
     }
 
-    //Takes the assumption that each stock only has one object within the parse Stock Class
     private void updateStock() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Stocks");
         query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());

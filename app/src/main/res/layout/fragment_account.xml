@@ -5,7 +5,6 @@
     android:title="Account"
     android:background="#8BC34A">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <ImageView
         android:layout_width="325dp"
