@@ -135,9 +135,9 @@ public class CreateJoinLeagueFragment extends Fragment {
         final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         leaguesL.setAdapter(listAdapter);
 
-        //Queries parse for the users League information
+        //Queries parse for all Leagues
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Leagues");
-        query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());
+        //query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId()); no need to specify user 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> leaguesL, com.parse.ParseException e) {
