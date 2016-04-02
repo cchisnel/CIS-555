@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -41,6 +40,7 @@ public class SellFragment extends Fragment {
     String numStocks;
     float currentBalance, newBalance, mSharePrice;
     private static final Logger logger = Logger.getLogger(SellFragment.class.getName());
+    private ArrayAdapter<String> listAdapter;
 
     @Nullable
     @Override
@@ -54,13 +54,16 @@ public class SellFragment extends Fragment {
         shareAmount = (EditText) view.findViewById(R.id.shareAmountTextbox);
         sellButton = (Button) view.findViewById(R.id.sellButton);
 
+        // Creates and populates an ArrayList of objects from parse
+        listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
+        stocksL.setAdapter(listAdapter);
+
         super.onViewCreated(view, savedInstanceState);
 
-        createStockList(stocksL);
+        createStockList();
 
         stocksL.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                //grabs tickersymbol from user selection
                 userSelection = ((TextView) v).getText().toString();
                 tickerSymbol = userSelection.substring(userSelection.indexOf("Stock") + 7, userSelection.indexOf(","));
             }
@@ -84,6 +87,8 @@ public class SellFragment extends Fragment {
                             //updates bank account and the parse Stock class
                             updateStock();
                             updateAccountBalance();
+                            //updateStockList(stocksL);
+                            //shareAmount.setText("");
 
                             //TODO: This doesn't always work, need a better solution
                             //Reloads fragment
@@ -107,11 +112,7 @@ public class SellFragment extends Fragment {
         });
     }
 
-    private void createStockList(final ListView stocksL) {
-        // Creates and populates an ArrayList of objects from parse
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
-        stocksL.setAdapter(listAdapter);
-
+    private void createStockList() {
         //Queries parse for the users stock information
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Stocks");
         query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());
@@ -137,21 +138,18 @@ public class SellFragment extends Fragment {
     }
 
     private void updateStock() {
+        final String mshareAmount = shareAmount.getText().toString();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Stocks");
         query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> stockL, com.parse.ParseException e) {
-
                 for (int i = 0; i < stockL.size(); i++) {
                     String userTicker = stockL.get(i).get("TickerSymbol").toString();
                     numStocks = stockL.get(i).getNumber("NumberofStocks").toString();
-
                     if (userTicker.equals(tickerSymbol)) {
-
                         //Subtracts number number of stocks in parse from the number the user entered
-                        Integer newStockNum = Integer.valueOf(numStocks) - Integer.valueOf(shareAmount.getText().toString());
-
+                        Integer newStockNum = Integer.valueOf(numStocks) - Integer.valueOf(mshareAmount);
                         if (newStockNum == 0)     //removes the whole stock object from parse Stock Class
                         {
                             stockL.get(i).deleteInBackground(new DeleteCallback() {
@@ -183,7 +181,6 @@ public class SellFragment extends Fragment {
     }
 
     private void updateAccountBalance() {
-
         try {
             //grabs the most current price from Yahoo Finance API
             List<String> results = new Yahoo().execute(tickerSymbol).get();
@@ -193,7 +190,6 @@ public class SellFragment extends Fragment {
         } catch (ExecutionException n) {
 
         }
-
         //updates the users current account balance to take account for the sold stock
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseObject>() {
@@ -210,6 +206,21 @@ public class SellFragment extends Fragment {
             }
         });
     }
+
+   /* private void updateStockList(final ListView stocksL) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+          public void run() {
+                //move outside runOnUiThread
+                listAdapter.clear();
+                createStockList();
+                listAdapter.notifyDataSetChanged();
+                stocksL.setAdapter(listAdapter);
+            }
+         });*/
+
+
+    // }
 }
 
 

@@ -17,8 +17,8 @@ import com.parse.RequestPasswordResetCallback;
 public class ForgotPasswordActivity extends Activity {
 
     View rootView;
-    Button submit;
-    Button cancel;
+    Button submitButton;
+    Button cancelButton;
     EditText email;
 
 
@@ -27,37 +27,49 @@ public class ForgotPasswordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        submit = (Button) findViewById(R.id.submitButton);
-        cancel = (Button) findViewById(R.id.cancelButton);
+        submitButton = (Button) findViewById(R.id.submitButton);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         email = (EditText) findViewById(R.id.emailAddressTextbox);
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String _email = email.getText().toString();
-                ParseUser.requestPasswordResetInBackground(_email, new RequestPasswordResetCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast a = Toast.makeText(ForgotPasswordActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG);
-                            a.show();
-                            startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
-                        } else {
-                            Toast a = Toast.makeText(ForgotPasswordActivity.this, "Email could not be sent at this time.", Toast.LENGTH_LONG);
-                            a.show();
-                        }
-                    }
-                });
+
+                //Validates email address provided
+                if (!_email.equals("") && _email.contains("@")) {
+                    passwordReset(_email);
+                } else {
+                    Toast a = Toast.makeText(ForgotPasswordActivity.this, "Email can't be blank and must contain an '@' sign. Please try again.", Toast.LENGTH_LONG);
+                    a.show();
+                }
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
             }
         });
 
+    }
+
+    private void passwordReset(String email) {
+        ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast a = Toast.makeText(ForgotPasswordActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG);
+                    a.show();
+                    startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                } else {
+                    Toast a = Toast.makeText(ForgotPasswordActivity.this, "An account with this email address wasn't found. Please try again.", Toast.LENGTH_LONG);
+                    a.show();
+                }
+            }
+        });
     }
 
 }
