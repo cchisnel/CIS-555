@@ -4,10 +4,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,312 +26,123 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 
 
 public class StandingsFragment extends Fragment {
-    private static final NumberFormat percentFormat = NumberFormat.getPercentInstance();
 
-    List<Integer> idList = new ArrayList<>();
-    List<String> winList = new ArrayList<>();
-    List<String> lossList = new ArrayList<>();
-    List<String> firstName = new ArrayList<>();
-    List<String> lastName = new ArrayList<>();
-    List<String> tieList = new ArrayList<>();
-    List<String> winPercentList = new ArrayList<>();
-
-
-    int resultID;
-    String resultWins;
-    String resultLosses;
-    String resultTies;
-    String resultWP;
-    String firstNameS;
-    String lastNameS;
-
+    ListView rankNameL;
+    ListView rankNumL;
+    TextView leagueView;
     View rootview;
+    String parseLeague;
+    ArrayList<String> parseUserL = new ArrayList<>();
+    ArrayList<Integer> parseStockL = new ArrayList<>();
+    ArrayList<Integer> parseBankL = new ArrayList<>();
+    ArrayList<Integer> arrayTotal = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_standings, container, false);
         return rootview;
-
     }
-
-
-}
-
-    /*
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        try {
-            List<List> standingsResult = new Standings().execute().get();
+        leagueView = (TextView) view.findViewById(R.id.leagueNameView);
+        rankNameL = (ListView) view.findViewById(R.id.rankListView);
+        rankNumL = (ListView) view.findViewById(R.id.moneyListView);
 
-            firstName = standingsResult.get(0);
-            lastName = standingsResult.get(1);
-            winList = standingsResult.get(2);
-            lossList = standingsResult.get(3);
-            tieList = standingsResult.get(4);
-            winPercentList = standingsResult.get(5);
-
-            TextView player1;
-            TextView player2;
-            TextView player3;
-            TextView player4;
-            TextView player5;
-            TextView player6;
-
-            TextView player1Record;
-            TextView player2Record;
-            TextView player3Record;
-            TextView player4Record;
-            TextView player5Record;
-            TextView player6Record;
-
-            TextView player1WP;
-            TextView player2WP;
-            TextView player3WP;
-            TextView player4WP;
-            TextView player5WP;
-            TextView player6WP;
-
-            player1 = (TextView) view.findViewById(R.id.player1);
-            player1.setText("1. " + firstName.get(0) + " " + lastName.get(0));
-            player2 = (TextView) view.findViewById(R.id.player2);
-            player2.setText("2. " + firstName.get(1) + " " + lastName.get(1));
-            player3 = (TextView) view.findViewById(R.id.player3);
-            player3.setText("3. " + firstName.get(2) + " " + lastName.get(2));
-            player4 = (TextView) view.findViewById(R.id.player4);
-            player4.setText("4. " + firstName.get(3) + " " + lastName.get(3));
-            player5 = (TextView) view.findViewById(R.id.player5);
-            player5.setText("5. " + firstName.get(4) + " " + lastName.get(4));
-            player6 = (TextView) view.findViewById(R.id.player6);
-            player6.setText("6. " + firstName.get(5) + " " + lastName.get(5));
-
-            player1Record = (TextView) view.findViewById(R.id.player1_record);
-            player1Record.setText(winList.get(0) + "-" + lossList.get(0) + "-" + tieList.get(0));
-            player2Record = (TextView) view.findViewById(R.id.player2_record);
-            player2Record.setText(winList.get(1) + "-" + lossList.get(1) + "-" + tieList.get(1));
-            player3Record = (TextView) view.findViewById(R.id.player3_record);
-            player3Record.setText(winList.get(2) + "-" + lossList.get(2) + "-" + tieList.get(2));
-            player4Record = (TextView) view.findViewById(R.id.player4_record);
-            player4Record.setText(winList.get(3) + "-" + lossList.get(3) + "-" + tieList.get(3));
-            player5Record = (TextView) view.findViewById(R.id.player5_record);
-            player5Record.setText(winList.get(4) + "-" + lossList.get(4) + "-" + tieList.get(4));
-            player6Record = (TextView) view.findViewById(R.id.player6_record);
-            player6Record.setText(winList.get(5) + "-" + lossList.get(5) + "-" + tieList.get(5));
-
-            float p1wp = Float.parseFloat(winPercentList.get(0));
-            float p2wp = Float.parseFloat(winPercentList.get(1));
-            float p3wp = Float.parseFloat(winPercentList.get(2));
-            float p4wp = Float.parseFloat(winPercentList.get(3));
-            float p5wp = Float.parseFloat(winPercentList.get(3));
-            float p6wp = Float.parseFloat(winPercentList.get(5));
-
-            player1WP = (TextView) view.findViewById(R.id.player1_wperc);
-            player1WP.setText(percentFormat.format(p1wp));
-            player2WP = (TextView) view.findViewById(R.id.player2_wperc);
-            player2WP.setText(percentFormat.format(p2wp));
-            player3WP = (TextView) view.findViewById(R.id.player3_wperc);
-            player3WP.setText(percentFormat.format(p3wp));
-            player4WP = (TextView) view.findViewById(R.id.player4_wperc);
-            player4WP.setText(percentFormat.format(p4wp));
-            player5WP = (TextView) view.findViewById(R.id.player5_wperc);
-            player5WP.setText(percentFormat.format(p5wp));
-            player6WP = (TextView) view.findViewById(R.id.player6_wperc);
-            player6WP.setText(percentFormat.format(p6wp));
-
-            standingsResult = null;
-
-
-
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        } catch(ExecutionException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-    }
-
-    public class Standings extends AsyncTask<Void, Void, List<List>> {
-        List<List> standingsResult;
-        ResultSet rs,rs1,rs2,rs3,rs4,rs5,rs6;
-        Statement st,st1,st2,st3,st4,st5,st6;
-        Connection conn;
-
-        @Override
-        protected List<List> doInBackground(Void... params) {
-
-            List<List> standingsResult;
-
-            try {
-                conn = null;
-                rs = null;
-                st = null;
-                if (conn != null)
-                    st = conn.createStatement();
-                if (st != null)
-                    rs = st.executeQuery("SELECT * FROM L1_STANDINGS");
-                if (rs != null)
-                    while(rs.next()) {
-                        resultID = rs.getInt("USERID");
-                        idList.add(resultID);
-                        resultWins = rs.getString("WINS");
-                        winList.add(resultWins);
-                        resultLosses = rs.getString("LOSSES");
-                        lossList.add(resultLosses);
-                        resultTies = rs.getString("TIES");
-                        tieList.add(resultTies);
-                        resultWP = rs.getString("WIN_PERCENT");
-                        winPercentList.add(resultWP);
-                    }
-
-                st1 = null;
-                if (conn != null)
-                    st1 = conn.createStatement();
-                rs1 = null;
-                if (st1 != null)
-                    rs1 = st1.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(0)));
-                if (rs1 != null)
-                    while(rs1.next()) {
-                        firstNameS = rs1.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs1.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-                st2 = null;
-                if (conn != null)
-                    st2 = conn.createStatement();
-                rs2 = null;
-                if (st2 != null)
-                    rs2 = st2.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(1)));
-                if (rs2 != null)
-                    while(rs2.next()) {
-                        firstNameS = rs2.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs2.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-                st3 = null;
-                if (conn != null)
-                    st3 = conn.createStatement();
-                rs3 = null;
-                if (st3 != null)
-                    rs3 = st3.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(2)));
-                if (rs3 != null)
-                    while(rs3.next()) {
-                        firstNameS = rs3.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs3.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-                st4 = null;
-                if (conn != null)
-                    st4 = conn.createStatement();
-                rs4 = null;
-                if (st4 != null)
-                    rs4 = st4.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(3)));
-                if (rs4 != null)
-                    while(rs4.next()) {
-                        firstNameS = rs4.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs4.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-                st5 = null;
-                if (conn != null)
-                    st5 = conn.createStatement();
-                rs5 = null;
-                if (st5 != null)
-                    rs5 = st5.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(4)));
-                if (rs5 != null)
-                    while(rs5.next()) {
-                        firstNameS = rs5.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs5.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-                st6 = null;
-                if (conn != null)
-                    st6 = conn.createStatement();
-                rs6 = null;
-                if (st6 != null)
-                    rs6 = st6.executeQuery("SELECT * FROM USERINFO WHERE USERID = " + (idList.get(5)));
-                if (rs6 != null)
-                    while(rs6.next()) {
-                        firstNameS = rs6.getString("FIRSTNAME");
-                        firstName.add(firstNameS);
-                        lastNameS = rs6.getString("LASTNAME");
-                        lastName.add(lastNameS);
-                    }
-
-                standingsResult = new ArrayList<>();
-                standingsResult.add(firstName);
-                standingsResult.add(lastName);
-                standingsResult.add(winList);
-                standingsResult.add(lossList);
-                standingsResult.add(tieList);
-                standingsResult.add(winPercentList);
-
-                return standingsResult;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if(rs!=null)
-                        rs.close();
-                    if(rs1!=null)
-                        rs1.close();
-                    if(rs2!=null)
-                        rs2.close();
-                    if(rs3!=null)
-                        rs3.close();
-                    if(rs4!=null)
-                        rs4.close();
-                    if(rs5!=null)
-                        rs5.close();
-                    if(rs6!=null)
-                        rs6.close();
-                    if(st!=null)
-                        st.close();
-                    if(st1!=null)
-                        st1.close();
-                    if(st2!=null)
-                        st2.close();
-                    if(st3!=null)
-                        st3.close();
-                    if(st4!=null)
-                        st4.close();
-                    if(st5!=null)
-                        st5.close();
-                    if(st6!=null)
-                        st6.close();
-
-                } catch(SQLException e) {
-                    e.printStackTrace();
+        //TODO error messages
+        // Query current user's league
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseObject>() {
+            public void done(ParseObject user, ParseException e) {
+                if (e == null) {
+                    parseLeague = user.getString("League");
+                    leagueView.setText(parseLeague);
+                } else {
+                    // error message
                 }
             }
+        });
 
-            return null;
-        }
+        // Query User List
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("_User");
+        query2.whereEqualTo("League", parseLeague); //TODO is undefined
+        query2.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> userL, com.parse.ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < userL.size(); i++) {
 
-        @Override
-        protected void onPostExecute(List<List> lists) {
-            super.onPostExecute(lists);
+                        String parseUser = userL.get(i).getString("username");
+                        parseUserL.add(parseUser);
+                    }
+                } else {
+                    // error message
+                }
+            }
+        });
 
-            standingsResult = null;
-        }
+        // Query bought stocks and store in array to be added
+        // After this point, it breaks the original display
+        ParseQuery<ParseObject> query3 = ParseQuery.getQuery("Stock");
+        query3.whereEqualTo("UserID", parseUserL);
+        query3.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> stockL, com.parse.ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < stockL.size(); i++) {
+
+                        int numStocks = stockL.get(i).getInt("NumberofStocks");
+                        int stockPrice = Integer.parseInt(stockL.get(i).getString("StockPrice"));
+                        int stockTotal = numStocks * stockPrice;
+                        parseStockL.add(stockTotal); // I think if this was a string it might work
+                        // out but I wasn't able to convert it back to string
+                    }
+                } else {
+                    // error message
+                }
+            }
+        });
+
+        // Query playerbank
+        ParseQuery<ParseObject> query4 = ParseQuery.getQuery("_User");
+        query4.whereContainedIn("username", Arrays.asList(parseUserL));
+        query4.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> userL, com.parse.ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < userL.size(); i++) {
+
+                        int bank = userL.get(i).getInt("PlayerBank");
+                        parseBankL.add(bank);
+                        arrayTotal.add(parseBankL.get(i) + parseStockL.get(i)); // Not sure if this works
+                        // Same idea, I think if this was converted to string it might work out?
+                    }
+                } else {
+                    // error message
+                }
+            }
+        });
+
+        // Bubblesort
+        //TODO bubblesort playerbank then reflect the change onto player array
+
+        // Setting up array
+        // List displays array items
+        //String[] values = new String[]{"1. Item1", "2. Item2", "3. Item3", "4. Item4"};
+        //String[] values2 = new String[]{"$1,000", "$2,555", "$100", "$500"};
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, parseUserL);
+        final ArrayAdapter<Integer> arrayAdapter2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, arrayTotal);
+        rankNameL.setAdapter(arrayAdapter);
+        rankNumL.setAdapter(arrayAdapter2);
     }
 }
-
-
-
-*/
