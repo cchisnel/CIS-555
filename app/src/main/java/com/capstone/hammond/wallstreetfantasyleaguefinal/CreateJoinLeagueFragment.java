@@ -2,7 +2,8 @@ package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
 
 /**
- * Created by casey chisnell on 3/10/2016.
+ * Created by Casey Chisnell on 3/10/2016.
+ * 
  */
 
 
