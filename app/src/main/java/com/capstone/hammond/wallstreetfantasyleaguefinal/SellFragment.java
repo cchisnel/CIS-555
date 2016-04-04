@@ -89,19 +89,7 @@ public class SellFragment extends Fragment {
                             updateStock();
                             updateAccountBalance();
                             restarttab();
-                            //updateStockList(stocksL);
-                            //shareAmount.setText("");
-
-                            //TODO: This doesn't always work, need a better solution
-                            //Reloads fragment
-
-                            /*Fragment newFragment = new SellFragment();
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container, newFragment)
-                                    .commit();
-*/
-
+                  
                         } catch (ParseException e) {
                             logger.log(Level.SEVERE, e.toString());
                         }
