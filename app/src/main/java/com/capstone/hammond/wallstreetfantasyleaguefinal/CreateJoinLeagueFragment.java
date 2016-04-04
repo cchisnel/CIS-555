@@ -81,7 +81,7 @@ public class CreateJoinLeagueFragment extends Fragment {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //grabs league name from user selection
                 userSelection = ((TextView) v).getText().toString();
-                LeagueName = userSelection.substring(userSelection.indexOf("League") + 5, userSelection.indexOf(","));
+                LeagueName = userSelection.substring(userSelection.indexOf("League") + 5);
             }
         });
 
