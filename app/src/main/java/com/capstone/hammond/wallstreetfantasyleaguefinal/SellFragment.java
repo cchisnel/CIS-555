@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Dylan on 2016-03-14.
+ * updated by Casey on 4/3/16
  */
 public class SellFragment extends Fragment {
     View rootview;
@@ -87,17 +88,19 @@ public class SellFragment extends Fragment {
                             //updates bank account and the parse Stock class
                             updateStock();
                             updateAccountBalance();
+                            restarttab();
                             //updateStockList(stocksL);
                             //shareAmount.setText("");
 
                             //TODO: This doesn't always work, need a better solution
                             //Reloads fragment
-                            Fragment newFragment = new SellFragment();
+
+                            /*Fragment newFragment = new SellFragment();
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction()
                                     .replace(R.id.container, newFragment)
                                     .commit();
-
+*/
 
                         } catch (ParseException e) {
                             logger.log(Level.SEVERE, e.toString());
@@ -178,6 +181,18 @@ public class SellFragment extends Fragment {
                 }
             }
         });
+
+
+
+    }
+
+
+    private void restarttab() {
+        // restarts the fragment
+        //TODO: will do for the time being
+        android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+
     }
 
     private void updateAccountBalance() {
@@ -207,20 +222,10 @@ public class SellFragment extends Fragment {
         });
     }
 
-   /* private void updateStockList(final ListView stocksL) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-          public void run() {
-                //move outside runOnUiThread
-                listAdapter.clear();
-                createStockList();
-                listAdapter.notifyDataSetChanged();
-                stocksL.setAdapter(listAdapter);
-            }
-         });*/
 
 
-    // }
+
+
 }
 
 
