@@ -148,7 +148,7 @@ public class CreateJoinLeagueFragment extends Fragment {
                         String parseLeague = leaguesL.get(i).get("League").toString();
 
 
-                        listAdapter.add("League " + parseLeague + ", Number of people in league: " + num);
+                        listAdapter.add("League " + parseLeague);
                         //listAdapter.add("Stock: " + parseTicker + ", Number of stocks held: " + numStocks);
                     }
 
