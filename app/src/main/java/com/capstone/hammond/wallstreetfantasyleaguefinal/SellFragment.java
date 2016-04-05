@@ -88,7 +88,7 @@ public class SellFragment extends Fragment {
                             //updates bank account and the parse Stock class
                             updateStock();
                             updateAccountBalance();
-                            restarttab();
+                            //restarttab();
                   
                         } catch (ParseException e) {
                             logger.log(Level.SEVERE, e.toString());
@@ -167,6 +167,7 @@ public class SellFragment extends Fragment {
                         }
                     }
                 }
+                restarttab();
             }
         });
 
