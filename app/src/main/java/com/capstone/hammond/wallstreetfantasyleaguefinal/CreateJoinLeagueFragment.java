@@ -79,9 +79,10 @@ public class CreateJoinLeagueFragment extends Fragment {
 
         leaguesL.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                //grabs league name from user selection
+                //grabs league name from user selection and sets textbox
                 userSelection = ((TextView) v).getText().toString();
-                LeagueName = userSelection.substring(userSelection.indexOf("League") + 5);
+                LeagueName = userSelection.substring(6);
+                mLeagueName.setText(LeagueName);
             }
         });
 
@@ -89,38 +90,41 @@ public class CreateJoinLeagueFragment extends Fragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //ParseUser user = new ParseUser();
-                //user.put("League", leaguename);
+                
                 ParseUser user = new ParseUser().getCurrentUser();
-                final String leaguename = mLeagueName.getText().toString();
-                user.put("League", leaguename);
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast a = Toast.makeText(getActivity(), "You have joined the league.", Toast.LENGTH_LONG);
-                            a.show();
-                            ParseObject Leagues = new ParseObject("Leagues");
-                            Leagues.put("League", leaguename);
+                final String leagueName = mLeagueName.getText().toString();
+                if(userSelection == null) {
 
-                            Leagues.put("UserID", ParseUser.getCurrentUser().getObjectId());
-                            Leagues.saveInBackground();
+                    Toast.makeText(getActivity(), "League name must not be blank. Please try again", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    user.put("League", leagueName);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                Toast a = Toast.makeText(getActivity(), "You have joined the league.", Toast.LENGTH_LONG);
+                                a.show();
+                                ParseObject Leagues = new ParseObject("Leagues");
+                                Leagues.put("League", leagueName);
+                                Leagues.put("UserID", ParseUser.getCurrentUser().getObjectId());
+                                Leagues.saveInBackground();
 
 
-                            //Reloads fragment
-                            Fragment newFragment = new CreateJoinLeagueFragment();
-                            android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                                //Reloads fragment
+                                Fragment newFragment = new CreateJoinLeagueFragment();
+                                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.container, newFragment);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
 
-                        } else {
-                            Toast a = Toast.makeText(getActivity(), "You are unable to join at this time.", Toast.LENGTH_LONG);
-                            a.show();
+                            } else {
+                                Toast a = Toast.makeText(getActivity(), "You are unable to join at this time.", Toast.LENGTH_LONG);
+                                a.show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
 
             }
