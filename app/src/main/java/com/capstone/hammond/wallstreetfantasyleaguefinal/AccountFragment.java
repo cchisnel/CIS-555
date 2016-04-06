@@ -51,7 +51,7 @@ public class AccountFragment extends Fragment {
                 if (e == null) {
                     bankAmount = user.getNumber("PlayerBank").toString();
                     bankBalance.setText("Bank balance: $" + bankAmount);
-
+                    email.setText("Email: " + user.getString("email"));
                 } else {
                     logger.log(Level.SEVERE, e.toString());
                 }
@@ -59,7 +59,6 @@ public class AccountFragment extends Fragment {
         });
 
         username.setText("Username: " + UserLoginInfo.username);        //sets the additional textboxes within the fragment
-        email.setText("Email: " + UserLoginInfo.userEmail);
 
         updateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
