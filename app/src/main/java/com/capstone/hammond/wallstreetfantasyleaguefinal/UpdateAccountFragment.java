@@ -64,7 +64,7 @@ public class UpdateAccountFragment extends android.support.v4.app.Fragment {
                                 a.show();
 
                             } else {
-                                Toast a = Toast.makeText(getActivity(), "Your email address was unable to be reset at this time.", Toast.LENGTH_LONG);
+                                Toast a = Toast.makeText(getActivity(), "Your email address does not contain a valid domain name.", Toast.LENGTH_LONG);
                                 a.show();
                             }
                         }
