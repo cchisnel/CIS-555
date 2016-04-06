@@ -147,7 +147,7 @@ public class SellFragment extends Fragment {
                                 @Override
                                 public void done(com.parse.ParseException e) {
                                     if (e == null) {
-                                        Toast.makeText(getActivity(), "Sell transaction was successfull.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Sell transaction was successful.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getActivity(), "Sell transaction was unable to be processed at this time.", Toast.LENGTH_SHORT).show();
                                         logger.log(Level.SEVERE, e.toString());
@@ -162,7 +162,7 @@ public class SellFragment extends Fragment {
 
                             stockL.get(i).put("NumberofStocks", newStockNum);
                             stockL.get(i).saveInBackground();
-                            Toast.makeText(getActivity(), "Sell transaction was successfull.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Sell transaction was successful.", Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }

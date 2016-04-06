@@ -58,11 +58,6 @@ public class CreateJoinLeagueFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_create_join_league, container, false);
         return rootview;
-
-
-
-
-
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {

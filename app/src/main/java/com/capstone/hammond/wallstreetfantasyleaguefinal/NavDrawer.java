@@ -77,6 +77,11 @@ public class NavDrawer extends ActionBarActivity
                 mTitle = "Account";
                 fragmentObject = new AccountFragment();
                 break;
+            case 6:
+                mTitle = "Ticker Lookup";
+                fragmentObject = new TickerLookupFragment();
+                break;
+
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
