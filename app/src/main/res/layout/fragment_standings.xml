@@ -10,55 +10,7 @@
 
     <ImageView
         android:layout_width="375dp"
-        android:layout_height="350dp"<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.capstone.hammond.wallstreetfantasyleaguefinal.StandingsFragment"
-    android:id="@+id/layout"
-    android:background="#8BC34A">
-
-    <ImageView
-        android:layout_width="375dp"
         android:layout_height="350dp"
-        android:id="@+id/white_space"
-        android:background="@drawable/layout_corners"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rankListView"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/moneyListView"
-        android:layout_below="@+id/leagueNameView"
-        android:layout_toLeftOf="@+id/moneyListView" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/moneyListView"
-        android:layout_toEndOf="@+id/leagueNameView"
-        android:layout_alignTop="@+id/rankListView"
-        android:layout_toRightOf="@+id/leagueNameView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/leagueNameView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Ranking" />
-
-</RelativeLayout>
         android:id="@+id/white_space"
         android:background="@drawable/layout_corners"
         android:layout_alignParentBottom="true"
