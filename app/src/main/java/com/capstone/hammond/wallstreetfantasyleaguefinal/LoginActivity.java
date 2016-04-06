@@ -152,7 +152,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private boolean isUserNameValid(String username) {
-        return username.length() > 6;
+        return username.length() >= 6;
     }
 
     private boolean isPasswordValid(String password) {
