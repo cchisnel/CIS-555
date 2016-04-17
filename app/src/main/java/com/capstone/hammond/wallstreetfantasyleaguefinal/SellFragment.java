@@ -4,7 +4,6 @@ import android.net.ParseException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -88,8 +89,7 @@ public class SellFragment extends Fragment {
                             //updates bank account and the parse Stock class
                             updateStock();
                             updateAccountBalance();
-                            //restarttab();
-                  
+
                         } catch (ParseException e) {
                             logger.log(Level.SEVERE, e.toString());
                         }
@@ -139,9 +139,9 @@ public class SellFragment extends Fragment {
                     String userTicker = stockL.get(i).get("TickerSymbol").toString();
                     numStocks = stockL.get(i).getNumber("NumberofStocks").toString();
                     if (userTicker.equals(tickerSymbol)) {
-                        //Subtracts number number of stocks in parse from the number the user entered
                         Integer newStockNum = Integer.valueOf(numStocks) - Integer.valueOf(mshareAmount);
-                        if (newStockNum == 0)     //removes the whole stock object from parse Stock Class
+                        //removes the whole stock object from parse Stock Class if newStock == 0
+                        if (newStockNum == 0)
                         {
                             stockL.get(i).deleteInBackground(new DeleteCallback() {
                                 @Override
@@ -158,8 +158,9 @@ public class SellFragment extends Fragment {
                         } else if (newStockNum < 0) {
                             Toast.makeText(getActivity(), "Your trying to sell more shares than you currently own. Please try again.", Toast.LENGTH_SHORT).show();
                             break;
-                        } else {  //updates the users current number of stocks in parse Stock class
-
+                        }
+                        //updates the users current number of stocks in parse Stock class if the number is > 0
+                        else {
                             stockL.get(i).put("NumberofStocks", newStockNum);
                             stockL.get(i).saveInBackground();
                             Toast.makeText(getActivity(), "Sell transaction was successful.", Toast.LENGTH_SHORT).show();
@@ -167,21 +168,14 @@ public class SellFragment extends Fragment {
                         }
                     }
                 }
-                restarttab();
+                restartTab();
             }
         });
-
-
-
     }
 
-
-    private void restarttab() {
-        // restarts the fragment
-        //TODO: will do for the time being
+    private void restartTab() {
         android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
-
     }
 
     private void updateAccountBalance() {
@@ -204,17 +198,13 @@ public class SellFragment extends Fragment {
                     newBalance = currentBalance + (mShareAmount * mSharePrice);
                     user.put("PlayerBank", newBalance);
                     user.saveInBackground();
+                    shareAmount.setText("");
                 } else {
                     logger.log(Level.SEVERE, e.toString());
                 }
             }
         });
     }
-
-
-
-
-
 }
 
 

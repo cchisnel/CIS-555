@@ -3,8 +3,8 @@ package com.capstone.hammond.wallstreetfantasyleaguefinal;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -28,12 +28,9 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-// A login screen that offers login via email/password.
-
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     private UserLoginTask mAuthTask = null;
-   // private static final Logger logger = Logger.getLogger(AccountFragment.class.getName());
 
     // UI references.
     private AutoCompleteTextView mUserName;
@@ -44,12 +41,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Typeface mTypeFace = Typeface.createFromAsset(getAssets(),"SFSportsNight.ttf");
+        Typeface mTypeFace = Typeface.createFromAsset(getAssets(), "SFSportsNight.ttf");
 
-        TextView mTextView1 = (TextView)findViewById(R.id.wallStreet);
+        TextView mTextView1 = (TextView) findViewById(R.id.wallStreet);
         mTextView1.setTypeface(mTypeFace);
 
-        TextView mTextView2 = (TextView)findViewById(R.id.fantasy);
+        TextView mTextView2 = (TextView) findViewById(R.id.fantasy);
         mTextView2.setTypeface(mTypeFace);
 
         // Set up the login form.
@@ -236,7 +233,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             ParseUser.logInInBackground(mUserName, mPassword, new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
-                    if(e != null) {
+                    if (e != null) {
                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
@@ -250,7 +247,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         @Override
-        protected void onCancelled () {
+        protected void onCancelled() {
             mAuthTask = null;
         }
     }

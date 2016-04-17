@@ -12,14 +12,14 @@
 
     <string name="action_example">Example action</string>
 
-   <string-array name="sections">
+    <string-array name="sections">
         <item>"  Current Market Trends"</item>
         <item>"  Buy Stock</item>
         <item>"  Sell Stock</item>
         <item>"   Ranking"</item>
         <item>"   League"</item>
         <item>"   Account</item>
-       <item>"    Ticker Lookup</item>
+        <item>"    Ticker Lookup</item>
 
 
     </string-array>
@@ -39,7 +39,7 @@
         <item>@drawable/ic_money</item>
         <item>@drawable/ic_standings</item>
         <!--for the removed schedule tab-->
-       <!-- <item>@drawable/ic_calendar</item>-->
+        <!-- <item>@drawable/ic_calendar</item>-->
         <item>@drawable/ic_league</item>
         <item>@drawable/ic_person</item>
         <item>@drawable/ic_action_search</item>

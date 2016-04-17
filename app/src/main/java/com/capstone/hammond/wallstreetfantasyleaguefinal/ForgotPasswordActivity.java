@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
@@ -16,17 +17,16 @@ import com.parse.RequestPasswordResetCallback;
  */
 public class ForgotPasswordActivity extends Activity {
 
-    View rootView;
     Button submitButton;
     Button cancelButton;
     EditText email;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        //Intialize views
         submitButton = (Button) findViewById(R.id.submitButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         email = (EditText) findViewById(R.id.emailAddressTextbox);
@@ -71,6 +71,5 @@ public class ForgotPasswordActivity extends Activity {
             }
         });
     }
-
 }
 

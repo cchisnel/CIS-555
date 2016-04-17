@@ -1,8 +1,8 @@
 package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccountSetupActivity extends ActionBarActivity {
 
@@ -30,6 +30,7 @@ public class AccountSetupActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setup);
 
+        //Initialize views
         mUserName = (EditText) findViewById(R.id.username);
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -41,7 +42,7 @@ public class AccountSetupActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountSetupActivity.this, LoginActivity.class));
-             }
+            }
         });
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +79,12 @@ public class AccountSetupActivity extends ActionBarActivity {
             cancel = true;
         }
 
+        //Ensures username can't contain special characters
         String line = username;
         String pattern = "^[a-zA-Z0-9]*$";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(line);
-        if(!m.find()){
+        if (!m.find()) {
             mUserName.setError("Username may only contain letters and numbers, no special characters");
             focusView = mUserName;
             cancel = true;

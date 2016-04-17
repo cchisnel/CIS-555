@@ -1,8 +1,8 @@
 package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +15,16 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import java.text.NumberFormat;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class CurrentMarketTrendsFragment extends Fragment {
     private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-
     TextView spPrice;
     TextView spPercent;
     TextView nasdaqPrice;
     TextView nasdaqPercent;
     TextView nyPrice;
     TextView nyPercent;
-
     View rootview;
 
     @Nullable
@@ -40,13 +37,11 @@ public class CurrentMarketTrendsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        //Intialize views
         spPrice = (TextView) view.findViewById(R.id.sp_price);
         spPercent = (TextView) view.findViewById(R.id.sp_percent);
-
         nasdaqPrice = (TextView) view.findViewById(R.id.nasdaq_price);
         nasdaqPercent = (TextView) view.findViewById(R.id.nasdaq_percent);
-
         nyPrice = (TextView) view.findViewById(R.id.ny_price);
         nyPercent = (TextView) view.findViewById(R.id.ny_percent);
 
@@ -63,14 +58,14 @@ public class CurrentMarketTrendsFragment extends Fragment {
                     UserLoginInfo.leagueNum = object.getString("leagueNum");
                 } else {
                     // Error
-                    Toast.makeText(getActivity(),"Error: " + e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Error: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         try {
 
-            // Get the price, percent, and name of S&P, Nasdaq, and NYSE.
+            // Get the price, percent, and name of S&P, Nasdaq, and NYSE using Yahoo API
             List<String> resultsS = new Yahoo().execute("^GSPC").get();
             setResult(spPrice, spPercent, resultsS.get(0), resultsS.get(1), resultsS.get(2));
             List<String> resultsN = new Yahoo().execute("^IXIC").get();
@@ -90,15 +85,10 @@ public class CurrentMarketTrendsFragment extends Fragment {
         textViewOne.setText(currencyFormat.format(Float.parseFloat(stockPrice)));
         textViewTwo.setText(fstockChangePercentage + "%");
         char c = fstockChangePercentage.charAt(0);
-        if(c=='+') {
+        if (c == '+') {
             textViewTwo.setTextColor(getResources().getColor(android.R.color.holo_green_light));
-        }
-        else if(c=='-') {
+        } else if (c == '-') {
             textViewTwo.setTextColor(getResources().getColor(android.R.color.holo_red_light));
         }
     }
 }
-
-//Look at creating a large String array of top stocks that we would like to display(perhaps top 5), and then randomly select them onCreate() to display their current prices
-//String [] stocks = {"^GSPC","^IXIC","^NYA","AAPL","GOOG",""} ETC ETC
-//String randomStock = (stocks[new Random().nextInt(stocks.length)]);

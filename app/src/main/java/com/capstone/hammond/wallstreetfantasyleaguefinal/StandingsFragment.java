@@ -1,35 +1,23 @@
 package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 
 
 public class StandingsFragment extends Fragment {
@@ -58,7 +46,6 @@ public class StandingsFragment extends Fragment {
         rankNameL = (ListView) view.findViewById(R.id.rankListView);
         rankNumL = (ListView) view.findViewById(R.id.moneyListView);
 
-        //TODO error messages
         // Query current user's league
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseObject>() {
@@ -91,7 +78,6 @@ public class StandingsFragment extends Fragment {
         });
 
         // Query bought stocks and store in array to be added
-        // After this point, it breaks the original display
         ParseQuery<ParseObject> query3 = ParseQuery.getQuery("Stock");
         query3.whereEqualTo("UserID", parseUserL);
         query3.findInBackground(new FindCallback<ParseObject>() {
@@ -103,8 +89,7 @@ public class StandingsFragment extends Fragment {
                         int numStocks = stockL.get(i).getInt("NumberofStocks");
                         int stockPrice = Integer.parseInt(stockL.get(i).getString("StockPrice"));
                         int stockTotal = numStocks * stockPrice;
-                        parseStockL.add(stockTotal); // I think if this was a string it might work
-                        // out but I wasn't able to convert it back to string
+                        parseStockL.add(stockTotal);
                     }
                 } else {
                     // error message
@@ -123,22 +108,13 @@ public class StandingsFragment extends Fragment {
 
                         int bank = userL.get(i).getInt("PlayerBank");
                         parseBankL.add(bank);
-                        arrayTotal.add(parseBankL.get(i) + parseStockL.get(i)); // Not sure if this works
-                        // Same idea, I think if this was converted to string it might work out?
+                        arrayTotal.add(parseBankL.get(i) + parseStockL.get(i));
                     }
                 } else {
                     // error message
                 }
             }
         });
-
-        // Bubblesort
-        //TODO bubblesort playerbank then reflect the change onto player array
-
-        // Setting up array
-        // List displays array items
-        //String[] values = new String[]{"1. Item1", "2. Item2", "3. Item3", "4. Item4"};
-        //String[] values2 = new String[]{"$1,000", "$2,555", "$100", "$500"};
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, parseUserL);
         final ArrayAdapter<Integer> arrayAdapter2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, arrayTotal);

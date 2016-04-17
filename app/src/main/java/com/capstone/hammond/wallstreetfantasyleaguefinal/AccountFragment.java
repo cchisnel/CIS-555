@@ -13,10 +13,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 
 public class AccountFragment extends Fragment {
@@ -27,7 +25,6 @@ public class AccountFragment extends Fragment {
     TextView email;
     TextView bankBalance;
     private static final Logger logger = Logger.getLogger(UpdateAccountFragment.class.getName());
-    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
     @Nullable
     @Override
@@ -36,16 +33,17 @@ public class AccountFragment extends Fragment {
         return rootview;
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //Initialize views
-        updateAccount = (Button)  view.findViewById(R.id.updateInfo);
+        updateAccount = (Button) view.findViewById(R.id.updateInfo);
         username = (TextView) view.findViewById(R.id.user_name);
-        email = (TextView)view.findViewById(R.id.user_email);
+        email = (TextView) view.findViewById(R.id.user_email);
         bankBalance = (TextView) view.findViewById(R.id.bankamount);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");       //queries parse for current account balance
+        //queries parse for current account balance
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseObject>() {
             public void done(ParseObject user, ParseException e) {
                 if (e == null) {
@@ -58,7 +56,8 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        username.setText("Username: " + UserLoginInfo.username);        //sets the additional textboxes within the fragment
+        //sets the username textBox
+        username.setText("Username: " + UserLoginInfo.username);
 
         updateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,22 +70,5 @@ public class AccountFragment extends Fragment {
                 transaction.commit();
             }
         });
-
-       /* getView().setFocusableInTouchMode(true);        //forces back button to
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        Toast.makeText(getActivity(), "Back Pressed", Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });*/
-
     }
-
 }

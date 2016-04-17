@@ -1,18 +1,18 @@
 package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,20 +102,20 @@ public class NavigationDrawerFragment extends Fragment {
         });
         final TypedArray typedArray = getResources().obtainTypedArray(R.array.section_icons);
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                                           getActionBar().getThemedContext(),
-                                           android.R.layout.simple_list_item_activated_1,
-                                           android.R.id.text1,
-                                           getResources().getStringArray(R.array.sections)
-                                   ) {
-                                       @Override
-                                       public View getView(int position, View convertView, ViewGroup parent) {
-                                           View v = super.getView(position, convertView, parent);
-                                           int resourceId = typedArray.getResourceId(position, 0);
-                                           Drawable drawable = getResources().getDrawable(resourceId);
-                                           ((TextView) v).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                                           return v;
-                                       }
-                                   });
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                getResources().getStringArray(R.array.sections)
+        ) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                int resourceId = typedArray.getResourceId(position, 0);
+                Drawable drawable = getResources().getDrawable(resourceId);
+                ((TextView) v).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                return v;
+            }
+        });
 
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

@@ -3,12 +3,9 @@ package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
 /**
  * Created by Casey Chisnell on 3/10/2016.
- * 
  */
 
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,22 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 
 
 public class CreateJoinLeagueFragment extends Fragment {
@@ -48,9 +38,7 @@ public class CreateJoinLeagueFragment extends Fragment {
     EditText mLeagueName;
     Button mSignUpButton;
     String userSelection, LeagueName;
-    int num = 2;
     private static final Logger logger = Logger.getLogger(BuyFragment.class.getName());
-
 
 
     @Nullable
@@ -62,37 +50,33 @@ public class CreateJoinLeagueFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-
         final ListView leaguesL = (ListView) view.findViewById(R.id.leagueList);
         mSignUpButton = (Button) view.findViewById(R.id.btnjoinleague);
         mLeagueName = (EditText) view.findViewById(R.id.txtTeamName);
 
         super.onViewCreated(view, savedInstanceState);
 
-
         updateLeagueList(leaguesL);
 
         leaguesL.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //grabs league name from user selection and sets textBox accordingly
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                //grabs league name from user selection and sets textbox
                 userSelection = ((TextView) v).getText().toString();
                 LeagueName = userSelection.substring(6);
                 mLeagueName.setText(LeagueName);
             }
         });
 
-
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 ParseUser user = new ParseUser().getCurrentUser();
                 final String leagueName = mLeagueName.getText().toString();
-                if(userSelection == null) {
+                if (userSelection == null) {
 
                     Toast.makeText(getActivity(), "League name must not be blank. Please try again", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
+                    //Signs the user up for their selected league
                     user.put("League", leagueName);
                     user.saveInBackground(new SaveCallback() {
                         @Override
@@ -104,7 +88,6 @@ public class CreateJoinLeagueFragment extends Fragment {
                                 Leagues.put("League", leagueName);
                                 Leagues.put("UserID", ParseUser.getCurrentUser().getObjectId());
                                 Leagues.saveInBackground();
-
 
                                 //Reloads fragment
                                 Fragment newFragment = new CreateJoinLeagueFragment();
@@ -120,14 +103,8 @@ public class CreateJoinLeagueFragment extends Fragment {
                         }
                     });
                 }
-
-
             }
         });
-
-
-
-
     }
 
     private void updateLeagueList(ListView leaguesL) {
@@ -137,38 +114,20 @@ public class CreateJoinLeagueFragment extends Fragment {
 
         //Queries parse for all Leagues
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Leagues");
-        //query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId()); no need to specify user 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> leaguesL, com.parse.ParseException e) {
                 if (e == null) {
                     for (int i = 0; i < leaguesL.size(); i++) {
-
                         String parseLeague = leaguesL.get(i).get("League").toString();
-
-
                         listAdapter.add("League " + parseLeague);
-                        //listAdapter.add("Stock: " + parseTicker + ", Number of stocks held: " + numStocks);
                     }
-
                 } else {
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
                     logger.log(Level.SEVERE, e.toString());
                 }
             }
-
         });
-
-
-
-
-
     }
-
-
-
-
-
-
 }
 

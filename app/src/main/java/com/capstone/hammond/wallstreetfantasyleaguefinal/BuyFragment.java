@@ -7,14 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +19,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import java.sql.Connection;
+
+import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -61,6 +57,7 @@ public class BuyFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Intialize views
         setSymbol = (EditText) view.findViewById(R.id.setSymbol);
         symbolOut = (TextView) view.findViewById(R.id.stockSymbolOutput);
         priceOut = (TextView) view.findViewById(R.id.stockPriceOutput);
@@ -79,7 +76,7 @@ public class BuyFragment extends Fragment {
                     bankS = user.getNumber("PlayerBank").toString();
                     bank.setText("Bank balance: $" + bankS);
                 } else {
-                    logger.log(Level.SEVERE,e.toString());
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         });
@@ -87,11 +84,12 @@ public class BuyFragment extends Fragment {
 
         getQuote.setOnClickListener(new View.OnClickListener() {
 
+            //Retrieves stock information via Yahoo API and calls setResult
             @Override
             public void onClick(View v) {
                 try {
                     List<String> results = new Yahoo().execute(setSymbol.getText().toString()).get();
-                    setResult(results.get(0), results.get(1), results.get(2),symbolOut,priceOut,changePercentageOut);
+                    setResult(results.get(0), results.get(1), results.get(2), symbolOut, priceOut, changePercentageOut);
                     tick.setText((setSymbol.getText().toString()).toUpperCase());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -104,19 +102,18 @@ public class BuyFragment extends Fragment {
         buyStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Checks that share amount is comprised of only letters
                 String line = shares.getText().toString();
                 String pattern = "[0-9]+";
                 Pattern r = Pattern.compile(pattern);
                 Matcher m = r.matcher(line);
-                //Checks that share amount is comprised of only letters
                 if (m.find()) {
                     try {
                         BuyStock();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     Toast a = Toast.makeText(getActivity(), "Share amount may only contain letters. Please try again.", Toast.LENGTH_LONG);
                     a.show();
                 }
@@ -138,9 +135,7 @@ public class BuyFragment extends Fragment {
                 changePercentageOut.setTextColor(getResources().getColor(android.R.color.holo_red_light));
             }
 
-        }
-        catch(NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             Toast a = Toast.makeText(getActivity(), "Tick symbol entered wasn't found. Please try again.", Toast.LENGTH_LONG);
             a.show();
         }
@@ -159,15 +154,14 @@ public class BuyFragment extends Fragment {
             final String mShares = shares.getText().toString();
             final String stockPrice = priceOut.getText().toString();
 
-            if (mSharePrice*(Float.parseFloat(mShares))>(mBankAmt)) {
-                Toast b = Toast.makeText(getActivity(),"You do not have sufficient funds. Enter a different amount.", Toast.LENGTH_LONG);
+            if (mSharePrice * (Float.parseFloat(mShares)) > (mBankAmt)) {
+                Toast b = Toast.makeText(getActivity(), "You do not have sufficient funds. Enter a different amount.", Toast.LENGTH_LONG);
                 b.show();
             } else {
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Stocks");
                 query.whereEqualTo("UserID", ParseUser.getCurrentUser().getObjectId());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> stockL, com.parse.ParseException e) {
-
                         //Searches parse Stock class for a matching ticker symbol, appends new stock number to object if found
                         for (int i = 0; i < stockL.size(); i++) {
 
@@ -213,17 +207,13 @@ public class BuyFragment extends Fragment {
                         if (e == null) {
                             Toast a = Toast.makeText(getActivity(), "Success!", Toast.LENGTH_LONG);
                             a.show();
-                        }
-                        else{
+                        } else {
                             logger.log(Level.SEVERE, e.toString());
                             Toast a = Toast.makeText(getActivity(), "Transaction was not successful.", Toast.LENGTH_LONG);
                             a.show();
                         }
-
-
                     }
                 });
-
                 // Reload Fragment
                 Fragment fragmentObject = new BuyFragment();
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -231,13 +221,11 @@ public class BuyFragment extends Fragment {
                 ft.attach(fragmentObject);
                 ft.commit();
             }
-
-        }catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }catch(ExecutionException e) {
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
     }
 }
 

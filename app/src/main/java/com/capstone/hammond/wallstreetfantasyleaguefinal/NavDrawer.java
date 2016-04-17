@@ -2,17 +2,17 @@ package com.capstone.hammond.wallstreetfantasyleaguefinal;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
 import com.parse.ParseUser;
 
@@ -36,7 +36,6 @@ public class NavDrawer extends ActionBarActivity
         setContentView(R.layout.activity_nav_drawer);
 
 
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
@@ -52,7 +51,7 @@ public class NavDrawer extends ActionBarActivity
 
         Fragment fragmentObject = null;
 
-        switch(position) {
+        switch (position) {
             case 0:
                 mTitle = "Current Market Trends";
                 fragmentObject = new CurrentMarketTrendsFragment();
@@ -92,8 +91,8 @@ public class NavDrawer extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         String[] stringArray = getResources().getStringArray(R.array.section_titles);
-        if(number>=1) {
-            mTitle = stringArray[number-1];
+        if (number >= 1) {
+            mTitle = stringArray[number - 1];
         }
     }
 
