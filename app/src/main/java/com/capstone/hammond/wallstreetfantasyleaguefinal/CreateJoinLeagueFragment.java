@@ -72,7 +72,7 @@ public class CreateJoinLeagueFragment extends Fragment {
             public void onClick(View v) {
                 ParseUser user = new ParseUser().getCurrentUser();
                 final String leagueName = mLeagueName.getText().toString();
-                if (userSelection == null) {
+                if (leagueName == null) {
 
                     Toast.makeText(getActivity(), "League name must not be blank. Please try again", Toast.LENGTH_SHORT).show();
                 } else {
